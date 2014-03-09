@@ -1,0 +1,24 @@
+Source: fedmsg-meta-tanglu
+Section: python
+Priority: optional
+Maintainer: Matthias Klumpp <mak@debian.org>
+Build-Depends:
+ debhelper (>= 9),
+ dh-python,
+ python-all,
+ python-fedmsg,
+ python-setuptools
+Standards-Version: 3.9.5
+X-Python-Version: >= 2.7
+Homepage: http://hub.tanglu.org
+
+Package: python-fedmsg-meta-tanglu
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-fedmsg
+Description: metadata providers for the Debian fedmsg deployment
+ fedmsg (Federated Messaging) is a Python package and API used within the
+ Fedora infrastructure to send and receive messages to and from
+ applications in order to allow for asynchronous processes.
+ .
+ This package provides the metadata useful to process messages sent in
+ the Tanglu deployment of fedmsg.
