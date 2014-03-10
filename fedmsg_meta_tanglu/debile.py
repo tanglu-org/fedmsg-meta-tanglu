@@ -1,4 +1,4 @@
-# Copyright (C) Simon Chopin <chopin.simon@gmail.com>
+# Copyright (C) 2014 Matthias Klumpp <mak@debian.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,32 +18,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from setuptools import setup
+from __future__ import unicode_literals
 
-install_requires = [
-    'fedmsg',
-]
+from fedmsg.meta.base import BaseProcessor
+import re
 
-setup(
-    name='fedmsg_meta_tanglu',
-    version='0.1',
-    description='fedmsg metadata providers for Tanglu deployment',
-    long_description=
-    '''This package provide metadata suited for the deployement of Fedmsg within the Tanglu infrastructure''',
-    author='Matthias Klumpp',
-    author_email='mak@debian.org',
-    license='Expat',
-    install_requires=install_requires,
-    packages=[
-        'fedmsg_meta_tanglu',
-    ],
-    include_package_data=True,
-    zip_safe=False,
-    entry_points={
-        'fedmsg.meta': [
-            "pkgreview = fedmsg_meta_tanglu.pkgreview:DebexpoProcessor",
-            "synchrotron = fedmsg_meta_tanglu.synchrotron:SynchrotronProcessor",
-            "debile = fedmsg_meta_tanglu.debile:DebileProcessor",
-        ]
+class DebileProcessor(BaseProcessor):
+    __name__ = "debile"
+    __description__ = "Our package building service"
+    __link__ = "http://buildd.tanglu.org"
+    __docs__ = "Would be nice."
+    __obj__ = "Building"
+
+    event2title = {
+        'build': "Package build",
+        'result': "Results",
+        'comment': "Comment on a package (mentors)",
     }
-)
+
+    def title(self, msg, **config):
+        event = msg['topic'].split('.')[-1]
+        return self.event2title.get(event, event)
+
+    def subtitle(self, msg, **config):
+        event = msg['topic'].split('.')[-1]
+        content = msg['msg']
+
+        return content
+
+    def link(self, msg, **config):
+        return 'http://buildd.tanglu.org/'
+
