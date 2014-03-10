@@ -1,0 +1,3 @@
+[fedmsg.meta]
+debexpo = fedmsg_meta_tanglu.pkgreview:DebexpoProcessor
+debchanges = fedmsg_meta_tanglu.synchrotron:SynchrotronProcessor
