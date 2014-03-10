@@ -1,7 +1,0 @@
-Metadata-Version: 1.0
-Name: fedmsg-meta-tanglu
-Version: 0.1
-Summary: fedmsg metadata providers for Debian deployment
-License: Expat
-Description: This package provide metadata suited for the deployement of Fedmsg within the Debian infrastructure
-Platform: UNKNOWN

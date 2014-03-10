@@ -41,9 +41,8 @@ setup(
     zip_safe=False,
     entry_points={
         'fedmsg.meta': [
-            "debchanges=fedmsg_meta_debian.debmessenger:DebChangesProcessor",
-            "debbugs=fedmsg_meta_debian.debmessenger:DebBugProcessor",
-            "debexpo=fedmsg_meta_debian.debexpo:DebexpoProcessor",
+            "pkgreview = fedmsg_meta_tanglu.pkgreview:DebexpoProcessor",
+            "synchrotron = fedmsg_meta_tanglu.synchrotron:SynchrotronProcessor",
         ]
     }
 )
