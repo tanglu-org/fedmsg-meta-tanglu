@@ -25,6 +25,7 @@ class SynchrotronProcessor(BaseProcessor):
     __name__ = "synchrotron"
     __description__ = "Syncronizing Tanglu with Debian"
     __docs__ = "Would be nice."
+    __link__ = "http://merges.tanglu.org"
     __obj__ = "Syncing"
 
     event2title = {
