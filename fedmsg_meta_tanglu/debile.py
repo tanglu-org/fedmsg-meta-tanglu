@@ -35,6 +35,7 @@ class DebileProcessor(BaseProcessor):
         'result': "Results",
         'comment': "Comment on a package (mentors)",
         'receive': "Results received",
+        'accept': "Source accepted",
     }
 
     def title(self, msg, **config):
@@ -44,26 +45,34 @@ class DebileProcessor(BaseProcessor):
     def subtitle(self, msg, **config):
         event = msg['topic'].split('.')[-1]
         content = msg['msg']
-        state_str = "was successful"
-        if content['failed']:
-            state_str = "has failed"
-        text = "Job '%s' for package '%s' in '%s' %s." % (content['job'], content['source'], content['suite'], state_str)
+        if event == "receive":
+            state_str = "was successful"
+            if content['failed']:
+                state_str = "has failed"
+            text = "Job '%s' for package '%s' in '%s' %s." % (content['job'], content['source'], content['suite'], state_str)
+        elif event == "accept":
+            text = "Package '%s' for '%s' was accepted by the build system." % (content['source'], content['suite'])
+        else:
+            text = content
 
         return text
 
     def link(self, msg, **config):
         content = msg['msg']
         source = content['source']
-        sourcepkg = ""
-        version = ""
-        if "(" in source:
-            parts = source.split("(")
-            sourcepkg = parts[0].strip()
-            version = parts[1]
-            if ")" in version:
-                version = version.replace(")", "").strip()
-        else:
-            return ""
+        event = msg['topic'].split('.')[-1]
+        if event == "receive":
+            sourcepkg = ""
+            version = ""
+            if "(" in source:
+                parts = source.split("(")
+                sourcepkg = parts[0].strip()
+                version = parts[1]
+                if ")" in version:
+                    version = version.replace(")", "").strip()
+            else:
+                return ""
+            url = "http://buildd.tanglu.org/job/%s/%s/%s/%s/" % (content['group'], sourcepkg, version, content['job_id'])
+            return url
 
-        url = "http://buildd.tanglu.org/job/%s/%s/%s/%s/" % (content['group'], sourcepkg, version, content['job_id'])
-        return url
+        return None
