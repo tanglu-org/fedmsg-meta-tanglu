@@ -34,6 +34,7 @@ class DebileProcessor(BaseProcessor):
         'build': "Package build",
         'result': "Results",
         'comment': "Comment on a package (mentors)",
+        'receive': "Results received",
     }
 
     def title(self, msg, **config):
@@ -43,9 +44,26 @@ class DebileProcessor(BaseProcessor):
     def subtitle(self, msg, **config):
         event = msg['topic'].split('.')[-1]
         content = msg['msg']
+        state_str = "was successful"
+        if content['failed']:
+            state_str = "has failed"
+        text = "Job '%s' for package '%s' in '%s' %s." % (content['job'], content['source'], content['suite'], state_str)
 
-        return content
+        return text
 
     def link(self, msg, **config):
-        return 'http://buildd.tanglu.org/'
+        content = msg['msg']
+        source = content['source']
+        sourcepkg = ""
+        version = ""
+        if "(" in source:
+            parts = source.split("(")
+            sourcepkg = parts[0].strip()
+            version = parts[1]
+            if ")" in version:
+                version = version.replace(")", "").strip()
+        else:
+            return ""
 
+        url = "http://buildd.tanglu.org/job/%s/%s/%s/%s/" % (content['group'], sourcepkg, version, content['job_id'])
+        return url

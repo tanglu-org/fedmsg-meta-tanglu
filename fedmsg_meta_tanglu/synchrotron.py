@@ -38,6 +38,6 @@ class SynchrotronProcessor(BaseProcessor):
         return self.event2title.get(event, event)
 
     def subtitle(self, msg, **config):
-        event = msg['topic'].split('.')[-1]
+        event = msg['topic'].split('.')[-2]
         content = msg['msg']
         return content
