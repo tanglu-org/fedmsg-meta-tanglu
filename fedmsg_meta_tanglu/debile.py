@@ -60,21 +60,21 @@ class DebileProcessor(BaseProcessor):
 
         if event == "start" and mod == "job":
             job = msg['msg']
-            return "Job '%s [%s]' for package '%s' in suite '%s' assigned to '%s'." % (job['name'], job['arch'], job['source'], job['suite'], job['builder']['name'])
+            return "Job '%s' for package '%s' in suite '%s' assigned to '%s'." % (job['name'], job['source'], job['suite'], job['builder']['name'])
 
         if event == "complete" and mod == "job":
             job = msg['msg']
-            return "Job '%s [%s]' for package '%s' in suite '%s' completed by '%s'." % (job['name'], job['arch'], job['source'], job['suite'], job['builder']['name'])
+            return "Job '%s' for package '%s' in suite '%s' completed by '%s'." % (job['name'], job['source'], job['suite'], job['builder']['name'])
 
         if event == "abort" and mod == "job":
             job = msg['msg']
-            return "Job '%s [%s]' for package '%s' in suite '%s' aborted by '%s'." % (job['name'], job['arch'], job['source'], job['suite'], job['builder']['name'])
+            return "Job '%s' for package '%s' in suite '%s' aborted by '%s'." % (job['name'], job['source'], job['suite'], job['builder']['name'])
 
         if event == "receive" and mod == "result":
             result = msg['msg']
             job = result['job_obj']
             state_str = "has failed" if result['failed'] else "was successful"
-            return "Job '%s [%s]' for package '%s' in suite '%s' %s." % (job['name'], job['arch'], job['source'], job['suite'], state_str)
+            return "Job '%s' for package '%s' in suite '%s' %s." % (job['name'], job['source'], job['suite'], state_str)
 
         if event == "accept" and mod == "source":
             source = msg['msg']
