@@ -31,8 +31,8 @@ class DebileProcessor(BaseProcessor):
     __obj__ = "Building"
 
     def title(self, msg, **config):
+        mod = msg['topic'].split('.')[-2]
         event = msg['topic'].split('.')[-1]
-        mod = msg['modname'].split('.')[-1]
 
         if event == "start" and mod == "job":
             return "Job assigned"
@@ -55,8 +55,8 @@ class DebileProcessor(BaseProcessor):
         return event
 
     def subtitle(self, msg, **config):
+        mod = msg['topic'].split('.')[-2]
         event = msg['topic'].split('.')[-1]
-        mod = msg['modname'].split('.')[-1]
 
         if event == "start" and mod == "job":
             job = msg['msg']
@@ -87,7 +87,7 @@ class DebileProcessor(BaseProcessor):
         return msg['msg']
 
     def link(self, msg, **config):
-        mod = msg['modname'].split('.')[-1]
+        mod = msg['topic'].split('.')[-2]
 
         if mod == "job":
             job = msg['msg']
