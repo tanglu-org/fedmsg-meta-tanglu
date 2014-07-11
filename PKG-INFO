@@ -1,10 +1,9 @@
 Metadata-Version: 1.0
-Name: fedmsg_meta_debian
+Name: fedmsg_meta_tanglu
 Version: 0.2
-Summary: fedmsg metadata providers for Debian deployment
-Home-page: http://anonscm.debian.org/gitweb/?p=users/laarmen-guest/fedmsg_meta_debian.git
-Author: Simon Chopin
-Author-email: chopin.simon@gmail.com
+Summary: fedmsg metadata providers for Debian/Tanglu deployment
+Author: Matthias Klumpp
+Author-email: matthias@tenstral.net
 License: Expat
 Description: This package provide metadata suited for the deployement of Fedmsg within the Debian infrastructure
 Platform: UNKNOWN
